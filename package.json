@@ -1,0 +1,18 @@
+{
+  "name": "koa-consistent-urls",
+  "description": "Redirect inconsistent urls middleware for koa",
+  "version": "1.0.0",
+  "author": {
+    "name": "Félix Sanz",
+    "email": "me@felixsanz.com",
+    "url": "https://felixsanz.com",
+    "twitter": "https://twitter.com/felixsanzm"
+  },
+  "license": "MIT",
+  "repository": "felixsanz/koa-consistent-urls",
+  "files": [
+    "index.js",
+    "LICENSE",
+    "HISTORY.md"
+  ]
+}
