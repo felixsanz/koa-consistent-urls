@@ -21,28 +21,33 @@ module.exports = function (options) {
   const trailingSlash = options.trailingSlash || false
 
   return (ctx, next) => {
-    let modified = false
-    const urlObj = url.parse(ctx.request.url)
+    const requestUrl = ctx.protocol + '://' + ctx.get('host') + ctx.originalUrl
+    const urlObj = url.parse(requestUrl)
 
+    let hostname
     if (www && urlObj.hostname && !urlObj.hostname.startsWith('www.')) {
-      urlObj.hostname = `www.${urlObj.hostname}`
-      modified = true
+      hostname = `www.${urlObj.hostname}`
     } else if (!www && urlObj.hostname && urlObj.hostname.startsWith('www.')) {
-      urlObj.hostname = urlObj.hostname.slice(4)
-      modified = true
+      hostname = urlObj.hostname.slice(4)
     }
 
+    let pathname
     if (trailingSlash && urlObj.pathname && urlObj.pathname !== '/' && !urlObj.pathname.slice(-1) === '/') {
-      urlObj.pathname = `${urlObj.pathname}/`
-      modified = true
+      pathname = `${urlObj.pathname}/`
     } else if (!trailingSlash && urlObj.pathname && urlObj.pathname !== '/' && urlObj.pathname.slice(-1) === '/') {
-      urlObj.pathname = urlObj.pathname.slice(0, -1)
-      modified = true
+      pathname = urlObj.pathname.slice(0, -1)
     }
 
-    if (modified) {
+    if (hostname || pathname) {
       ctx.status = 301
-      ctx.redirect(url.format(urlObj))
+      ctx.redirect(url.format({
+        protocol: urlObj.protocol,
+        auth: urlObj.auth,
+        hostname: hostname || urlObj.hostname,
+        port: urlObj.port,
+        pathname: pathname || urlObj.pathname,
+        search: urlObj.search,
+      }))
       return
     }
 
