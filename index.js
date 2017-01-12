@@ -32,10 +32,10 @@ module.exports = function (options) {
       modified = true
     }
 
-    if (trailingSlash && urlObj.pathname && !urlObj.pathname.slice(-1) === '/') {
+    if (trailingSlash && urlObj.pathname && urlObj.pathname !== '/' && !urlObj.pathname.slice(-1) === '/') {
       urlObj.pathname = `${urlObj.pathname}/`
       modified = true
-    } else if (!trailingSlash && urlObj.pathname && urlObj.pathname.slice(-1) === '/') {
+    } else if (!trailingSlash && urlObj.pathname && urlObj.pathname !== '/' && urlObj.pathname.slice(-1) === '/') {
       urlObj.pathname = urlObj.pathname.slice(0, -1)
       modified = true
     }
