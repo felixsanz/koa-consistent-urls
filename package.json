@@ -1,7 +1,7 @@
 {
   "name": "koa-consistent-urls",
   "description": "Redirect inconsistent urls middleware for koa",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Félix Sanz",
     "email": "me@felixsanz.com",

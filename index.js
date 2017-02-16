@@ -14,7 +14,7 @@ const url = require('url')
  * @api public
  */
 
-module.exports = function (options) {
+module.exports = function consistentUrls(options) {
   options = options || {}
 
   const www = options.www || false
